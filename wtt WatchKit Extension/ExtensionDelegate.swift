@@ -7,11 +7,30 @@
 //
 
 import WatchKit
+import WatchConnectivity
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
+        
+        if WCSession.isSupported() {
+            let session = WCSession.default
+            session.delegate = (self as WCSessionDelegate)
+            session.activate()
+            
+            if  session.isReachable {
+                
+                let contents = ["body" : "sendInteractiveMessaging"]
+                
+                session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+                    //iOSからのデータを受信した時の処理
+                    print("receive::\replyMessage")
+                }) { (error) -> Void in
+                    print(error)
+                }
+            }
+        }
     }
 
     func applicationDidBecomeActive() {
@@ -47,4 +66,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         }
     }
 
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("session")
+    }
+    
 }
