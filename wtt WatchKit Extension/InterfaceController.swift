@@ -17,6 +17,11 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         print("session")
     }
 
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+
+        print("receiveMessage::\(message)")
+    }
+
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
