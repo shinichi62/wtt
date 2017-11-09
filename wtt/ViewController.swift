@@ -27,7 +27,10 @@ class ViewController: UIViewController, WCSessionDelegate {
         
         // 受信したメッセージ
         print("receiveMessage::\(message)")
-    }
+
+        let replyMessage = ["body":"replyInteractiveMessaging from viewcontroller"]
+        replyHandler(replyMessage as [String : AnyObject])
+}
 
     override func viewDidLoad() {
         super.viewDidLoad()

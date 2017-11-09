@@ -56,7 +56,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
                 
                 session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
                     //iOSからのデータを受信した時の処理
-                    print("receive::\replyMessage")
+                    print("receive::\(replyMessage)")
                 }) { (error) -> Void in
                     print(error)
                 }
